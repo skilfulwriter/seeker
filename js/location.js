@@ -14,12 +14,12 @@ function information() {
 
 
   if (cc == undefined) {
-    cc = 'Not Available';
+    cc = '不可用';
   }
 
   //ram
   if (ram == undefined) {
-    ram = 'Not Available';
+    ram = '不可用';
   }
 
   //browser
@@ -44,7 +44,7 @@ function information() {
     brw = str[0];
   }
   else {
-    brw = 'Not Available'
+    brw = '不可用'
   }
 
   //gpu
@@ -58,10 +58,10 @@ function information() {
     ren = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
   }
   if (ven == undefined) {
-    ven = 'Not Available';
+    ven = '不可用';
   }
   if (ren == undefined) {
-    ren = 'Not Available';
+    ren = '不可用';
   }
 
   var ht = window.screen.height
@@ -71,7 +71,7 @@ function information() {
   os = os.split(';');
   os = os[1];
   if (os == undefined) {
-    os = 'Not Available';
+    os = '不可用';
   }
   os = os.trim();
   //
@@ -98,17 +98,17 @@ function locate(callback, errCallback) {
 
     switch (error.code) {
       case error.PERMISSION_DENIED:
-        err_text = 'User denied the request for Geolocation';
+        err_text = '用户拒绝了地理位置请求';
         break;
       case error.POSITION_UNAVAILABLE:
-        err_text = 'Location information is unavailable';
+        err_text = '位置信息不可用';
         break;
       case error.TIMEOUT:
-        err_text = 'The request to get user location timed out';
-        alert('Please set your location mode on high accuracy...');
+        err_text = '获取用户位置请求超时';
+        alert('请将定位模式设置为高精度...');
         break;
       case error.UNKNOWN_ERROR:
-        err_text = 'An unknown error occurred';
+        err_text = '发生未知错误';
         break;
     }
 
@@ -123,45 +123,45 @@ function locate(callback, errCallback) {
   function showPosition(position) {
     var lat = position.coords.latitude;
     if (lat) {
-      lat = lat + ' deg';
+      lat = lat + ' 度';
     }
     else {
-      lat = 'Not Available';
+      lat = '不可用';
     }
     var lon = position.coords.longitude;
     if (lon) {
-      lon = lon + ' deg';
+      lon = lon + ' 度';
     }
     else {
-      lon = 'Not Available';
+      lon = '不可用';
     }
     var acc = position.coords.accuracy;
     if (acc) {
-      acc = acc + ' m';
+      acc = acc + ' 米';
     }
     else {
-      acc = 'Not Available';
+      acc = '不可用';
     }
     var alt = position.coords.altitude;
     if (alt) {
-      alt = alt + ' m';
+      alt = alt + ' 米';
     }
     else {
-      alt = 'Not Available';
+      alt = '不可用';
     }
     var dir = position.coords.heading;
     if (dir) {
-      dir = dir + ' deg';
+      dir = dir + ' 度';
     }
     else {
-      dir = 'Not Available';
+      dir = '不可用';
     }
     var spd = position.coords.speed;
     if (spd) {
-      spd = spd + ' m/s';
+      spd = spd + ' 米/秒';
     }
     else {
-      spd = 'Not Available';
+      spd = '不可用';
     }
 
     var ok_status = 'success';
